@@ -113,7 +113,7 @@ const Logo: React.FC<PropsWithChildren<{ name: string; href: string }>> = ({
   href,
   children,
 }) => (
-  <a href={href} className="-m-1.5 p-1.5">
+  <a href={href} className="-m-1.5 p-1.5 dark:text-white">
     <span className="sr-only">{name}</span>
     {children}
   </a>
