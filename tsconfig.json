@@ -11,7 +11,7 @@
       "@components/*": ["@components/*"],
       "@utils/*": ["@utils/*"],
     },
-    "types": ["node", "@testing-library/jest-dom", "vitest/client", "vitest/globals"],
+    "types": ["node", "@testing-library/jest-dom", "vitest/globals"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
