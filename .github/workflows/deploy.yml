@@ -47,34 +47,16 @@ jobs:
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
-  release:
-    if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
-    needs: chromatic-deployment
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.merge_commit_sha }}
-          fetch-depth: "0"
-
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.64.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
-          PRERELEASE: true
   generate-changelog:
     runs-on: ubuntu-latest
-    needs: release
+    needs: chromatic-deployment
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Configure git user
         run: |
-          git config --global user.email "amnrsln@gmail.com"
-          git config --global user.name "CI/CD"
+          git config --global user.email "qwerqy@users.noreply.github.com"
+          git config --global user.name "Qwerqy"
       - name: Extract branch name
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
@@ -97,3 +79,21 @@ jobs:
       - name: Push changelog
         run: |
           git push --follow-tags origin ${{ steps.current_branch.outputs.branch }}
+  release:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    needs: generate-changelog
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          fetch-depth: "0"
+
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.64.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          PRERELEASE: true
