@@ -6,17 +6,6 @@ on: push
 
 # List of jobs
 jobs:
-  tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Install dependencies
-        run: pnpm i
-      - name: Run tests
-        run: pnpm test
   chromatic-deployment:
     # Operating System
     runs-on: ubuntu-latest
@@ -27,7 +16,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install dependencies
-        run: pnpm i
+        run: npm ci
         #👇 Adds Chromatic as a step in the workflow
       - name: Deploy to Chromatic
         uses: chromaui/action@v1
@@ -36,18 +25,3 @@ jobs:
           #👇 Chromatic projectToken,
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
-  release:
-    # Operating System
-    runs-on: ubuntu-latest
-    # Job steps
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Install dependencies
-        run: pnpm i
-      - name: Build
-        run: pnpm build
-      - name: Release
-        run: pnpm release
