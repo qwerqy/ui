@@ -106,7 +106,8 @@
   "_id": "canvas-blocks@0.0.0",
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "pre-commit": "sh .husky/pre-commit && lint-staged",
+      "pre-push": "sh .husky/pre-push $HUSKY_GIT_STDIN",
       "commit-msg": "sh .husky/commit-msg.sh $HUSKY_GIT_PARAMS"
     }
   },
