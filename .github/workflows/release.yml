@@ -13,3 +13,16 @@ jobs:
           fetch-depth: 0
       - name: Versioning
         uses: paulhatch/semantic-version@v5.0.2
+  generate-release-notes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Generate release notes
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "release.tar.gz,foo/*.txt"
+          bodyFile: "body.md"
+          generateReleaseNotes: true
