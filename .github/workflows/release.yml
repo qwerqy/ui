@@ -9,5 +9,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Versioning
         uses: paulhatch/semantic-version@v5.0.2
