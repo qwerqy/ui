@@ -53,6 +53,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - name: Configure git user
+        run: |
+          git config --global user.email "amnrsln@gmail.com"
+          git config --global user.name "CI/CD"
       - uses: pnpm/action-setup@v2
         with:
           version: 8
