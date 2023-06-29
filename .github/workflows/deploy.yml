@@ -26,6 +26,7 @@ jobs:
         run: pnpm test
   chromatic-deployment:
     runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
     needs: build
     steps:
       - name: Checkout repository
@@ -49,6 +50,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
   generate-changelog:
     runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
     needs: chromatic-deployment
     steps:
       - name: Checkout repository
@@ -77,9 +79,8 @@ jobs:
         run: |
           git push --follow-tags
   release:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    needs: generate-changelog
+    if: github.ref == 'refs/heads/main'
     permissions:
       contents: write
     steps:
