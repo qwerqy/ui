@@ -17,7 +17,9 @@ describe("Button component", () => {
 
   test("calls onClick callback when clicked", async () => {
     const handleClick = vi.fn();
+
     render(<Button onClick={handleClick} />);
+
     const button = screen.getByRole("button");
 
     await fireEvent.click(button);
