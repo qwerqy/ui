@@ -73,7 +73,7 @@ jobs:
         run: pnpm release
       - name: Push changelog
         run: |
-          git push --follow-tags origin ${{ github.event.pull_request.head.ref }}
+          git push --follow-tags ${{ github.event.pull_request.head.ref }}
   release:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
