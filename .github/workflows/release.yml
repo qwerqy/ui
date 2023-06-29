@@ -1,23 +1,13 @@
-name: "Generate Changelog and Version Release"
+name: "Release Version"
 on:
-  pull_request:
+  push:
     branches:
       - main
-    types:
-      - closed
-
 jobs:
-  generate-changelog-and-release:
-    if: github.event.pull_request.merged == true
+  bump-version:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-      - name: Configure committer
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-      - name: Bump version
-        uses: qzb/standard-version-action@v1.0.5
+      - name: Versioning
+        uses: paulhatch/semantic-version@v5.0.2
