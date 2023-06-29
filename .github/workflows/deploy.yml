@@ -53,6 +53,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
       - name: Configure git user
         run: |
           git config --global user.email "qwerqy@users.noreply.github.com"
@@ -73,7 +75,7 @@ jobs:
         run: pnpm release
       - name: Push changelog
         run: |
-          git push --follow-tags ${{ github.event.pull_request.head.ref }}
+          git push --follow-tags
   release:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
