@@ -6,6 +6,9 @@ on:
 jobs:
   bump-version:
     runs-on: ubuntu-latest
+    outputs:
+      version_tag: ${{ steps.versioning.outputs.version_tag }}
+      current_commit: ${{ steps.versioning.outputs.current_commit }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -25,8 +28,6 @@ jobs:
       - name: Generate release notes
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "release.tar.gz,foo/*.txt"
-          bodyFile: "body.md"
           generateReleaseNotes: true
-          tag: ${{ needs.bump-version.steps.versioning.outputs.version_tag }}
-          commit: ${{ needs.bump-version.steps.versioning.outputs.current_commit }}
+          tag: ${{ needs.bump-version.outputs.version_tag }}
+          commit: ${{ needs.bump-version.outputs.current_commit }}
