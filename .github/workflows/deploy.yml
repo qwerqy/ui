@@ -1,8 +1,5 @@
 name: "Build"
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -26,7 +23,6 @@ jobs:
         run: pnpm test
   chromatic-deployment:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
     needs: build
     steps:
       - name: Checkout repository
@@ -48,10 +44,9 @@ jobs:
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
-  generate-changelog:
+  generate-changelog-and-release:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
-    needs: chromatic-deployment
+    if: github.event.pull_request.merged == true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -78,20 +73,3 @@ jobs:
       - name: Push changelog
         run: |
           git push --follow-tags
-  release:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.merge_commit_sha }}
-          fetch-depth: "0"
-
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.64.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
-          PRERELEASE: true
