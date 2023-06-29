@@ -1,4 +1,4 @@
-name: "Build"
+name: "Deploy"
 on:
   pull_request:
     branches:
@@ -44,32 +44,3 @@ jobs:
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
-  generate-changelog-and-release:
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-      - name: Configure git user
-        run: |
-          git config --global user.email "qwerqy@users.noreply.github.com"
-          git config --global user.name "Qwerqy"
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Build
-        run: pnpm build
-      - name: Release
-        run: pnpm release
-      - name: Push changelog
-        run: |
-          git push --follow-tags
