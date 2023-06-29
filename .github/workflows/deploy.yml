@@ -47,34 +47,10 @@ jobs:
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
-  changelog:
-    runs-on: ubuntu-latest
-    needs: chromatic-deployment
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Configure git user
-        run: |
-          git config --global user.email "amnrsln@gmail.com"
-          git config --global user.name "CI/CD"
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Build
-        run: pnpm build
-      - name: Release
-        run: pnpm release
   release:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    needs: changelog
+    needs: chromatic-deployment
     permissions:
       contents: write
     steps:
@@ -89,3 +65,35 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           PRERELEASE: true
+  generate-changelog:
+    runs-on: ubuntu-latest
+    needs: release
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Configure git user
+        run: |
+          git config --global user.email "amnrsln@gmail.com"
+          git config --global user.name "CI/CD"
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: current_branch
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build
+        run: pnpm build
+      - name: Release
+        run: pnpm release
+      - name: Push changelog
+        run: |
+          git push --follow-tags origin ${{ steps.current_branch.outputs.branch }}
