@@ -9,9 +9,15 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: "test.setup.ts",
-    // you might want to disable it, if you don't have tests that rely on CSS
-    // since parsing CSS is slow
     css: true,
+    coverage: {
+      provider: "istanbul",
+      reportsDirectory: ".coverage",
+      reporter: ["json"],
+      statements: 90,
+      functions: 90,
+      lines: 90,
+    },
   },
   resolve: {
     alias: {
