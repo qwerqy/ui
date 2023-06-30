@@ -8,7 +8,6 @@ const meta = {
     variant: "default",
     size: "default",
   },
-  tags: ["autodocs"],
   parameters: {
     componentSubtitle:
       "Buttons allow users to take actions, and make choices, with a single tap.",
