@@ -14,7 +14,6 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic",
-    "release": "standard-version",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -95,7 +94,6 @@
     "postcss": "^8.4.24",
     "prettier": "2.8.8",
     "prop-types": "^15.8.1",
-    "standard-version": "^9.5.0",
     "storybook": "^7.0.23",
     "tailwindcss": "^3.3.2",
     "typescript": "^5.0.2",
