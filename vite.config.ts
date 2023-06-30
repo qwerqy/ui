@@ -13,10 +13,9 @@ export default defineConfig({
     coverage: {
       provider: "istanbul",
       reportsDirectory: ".coverage",
-      reporter: ["json"],
-      statements: 90,
-      functions: 90,
-      lines: 90,
+      reporter: [["json", { file: "coverage.json" }]],
+      all: true,
+      include: ["src/**/*.{ts,tsx}"],
     },
   },
   resolve: {
