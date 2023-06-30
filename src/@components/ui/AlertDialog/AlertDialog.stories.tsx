@@ -1,4 +1,4 @@
-import { StoryFn } from "@storybook/react";
+import { Meta, StoryFn, StoryObj } from "@storybook/react";
 import {
   AlertDialog,
   AlertDialogTrigger,
@@ -12,7 +12,7 @@ import {
 } from "./AlertDialog";
 import { useState } from "react";
 
-export default {
+const meta = {
   title: "Components/AlertDialog",
   component: AlertDialog,
   subcomponents: {
@@ -33,7 +33,11 @@ export default {
     open: { control: "boolean" },
     onClose: { action: "closed" },
   },
-};
+} as Meta<typeof AlertDialog>;
+
+export default meta;
+
+type Story = StoryObj<typeof AlertDialog>;
 
 const Template: StoryFn<typeof AlertDialog> = (args) => {
   const [open, setOpen] = useState(false);
@@ -55,10 +59,13 @@ const Template: StoryFn<typeof AlertDialog> = (args) => {
   );
 };
 
-export const Default = Template.bind({});
-Default.args = {};
+export const Default: Story = {
+  render: Template,
+};
 
-export const Customized = Template.bind({});
-Customized.args = {
-  open: false,
+export const Customized: Story = {
+  render: Template,
+  args: {
+    open: false,
+  },
 };
