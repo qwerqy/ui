@@ -51,6 +51,7 @@ jobs:
           commit: ${{ needs.bump-version.outputs.current_commit }}
   publish-to-npm:
     runs-on: ubuntu-latest
+    needs: generate-release-notes
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
