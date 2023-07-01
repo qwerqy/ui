@@ -40,9 +40,10 @@ jobs:
           git add package.json
           git commit -m "Bump version to ${{ steps.versioning.outputs.version_tag }}"
           git push
+      - name: Install dependencies for publishing
+        run: pnpm install --frozen-lockfile
       - name: Publish to NPM
-        run: |
-          pnpm publish --access public
+        run: pnpm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
   generate-release-notes:
