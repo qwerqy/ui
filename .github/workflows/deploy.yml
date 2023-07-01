@@ -30,6 +30,7 @@ jobs:
   chromatic-deployment:
     runs-on: ubuntu-latest
     needs: unit-tests
+    environment: manual-action
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
