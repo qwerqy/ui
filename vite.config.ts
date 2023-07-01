@@ -34,6 +34,7 @@ export default defineConfig({
       reporter: [["json", { file: "coverage.json" }]],
       all: true,
       include: ["src/**/*.{ts,tsx}"],
+      exclude: ["src/**/*.stories.{ts,tsx}"],
     },
   },
   resolve: {
