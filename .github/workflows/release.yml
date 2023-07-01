@@ -27,6 +27,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+          registry-url: "https://registry.npmjs.org"
       - name: Update version in package.json
         run: |
           new_version=${{ steps.versioning.outputs.version_tag }}
@@ -37,13 +38,16 @@ jobs:
           git config user.name "Amin Roslan"
           git config user.email "amnrsln@gmail.com"
           git add package.json
-          git commit -m "Bump version to $new_version"
+          git commit -m "Bump version to ${{ steps.versioning.outputs.version_tag }}"
           git push
+      - name: Publish to NPM
+        run: |
+          pnpm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
   generate-release-notes:
     runs-on: ubuntu-latest
     needs: bump-version
-    outputs:
-      version_tag: ${{ needs.bump-version.outputs.version_tag }}
     permissions:
       contents: write
     steps:
@@ -55,24 +59,3 @@ jobs:
           generateReleaseNotes: true
           tag: ${{ needs.bump-version.outputs.version_tag }}
           commit: ${{ needs.bump-version.outputs.current_commit }}
-  publish-to-npm:
-    runs-on: ubuntu-latest
-    needs: generate-release-notes
-    steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
-          registry-url: "https://registry.npmjs.org"
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - run: |
-          pnpm version --no-git-checks --no-git-tag-version ${{ needs.generate-release-notes.outputs.version_tag }}
-          pnpm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
