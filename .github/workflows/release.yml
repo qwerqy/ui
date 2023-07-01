@@ -19,15 +19,19 @@ jobs:
       - name: Versioning
         id: versioning
         uses: paulhatch/semantic-version@v5.0.2
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - uses: pnpm/action-setup@v2
         with:
-          node-version: 18
+          version: 8
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
       - name: Update version in package.json
         run: |
           new_version=${{ steps.versioning.outputs.version_tag }}
           # Update the version in package.json
-          npm version --no-git-tag-version $new_version
+          pnpm version --no-git-tag-version $new_version
       - name: Commit and push changes
         run: |
           git config user.name "Amin Roslan"
@@ -65,6 +69,6 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - run: pnpm publish --access public
+      - run: pnpm publish --access public --tag ${{ needs.bump-version.outputs.version_tag }}}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
