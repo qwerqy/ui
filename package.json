@@ -1,8 +1,22 @@
 {
-  "name": "canvas-blocks",
-  "private": true,
+  "name": "@qwerqy/ui",
+  "author": "Amin Roslan <amnrsln@gmail.com> (https://qwerqy.com)",
+  "keywords": [
+    "ui",
+    "react",
+    "vite",
+    "tailwindcss",
+    "typescript"
+  ],
+  "license": "MIT",
+  "private": false,
   "version": "0.0.2",
   "type": "module",
+  "homepage": "https://github/qwerqy/ui",
+  "repository": {
+    "type": "git",
+    "url": "https://github/qwerqy/ui.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
