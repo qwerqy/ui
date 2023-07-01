@@ -32,7 +32,7 @@ jobs:
         run: |
           new_version=${{ steps.versioning.outputs.version_tag }}
           # Update the version in package.json
-          pnpm version --no-git-tag-version $new_version
+          pnpm version --no-git-tag-version $new_version --allow-same-version
       - name: Commit and push changes
         run: |
           git config user.name "Amin Roslan"
