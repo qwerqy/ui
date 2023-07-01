@@ -72,7 +72,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - run: |
-          pnpm version --no-git-tag-version ${{ needs.generate-release-notes.outputs.version_tag }}
+          pnpm version --no-git-checks --no-git-tag-version ${{ needs.generate-release-notes.outputs.version_tag }}
           pnpm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
