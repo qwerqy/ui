@@ -10,7 +10,7 @@
   ],
   "license": "MIT",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.1.6",
   "type": "module",
   "homepage": "https://github/qwerqy/ui",
   "repository": {
@@ -115,7 +115,6 @@
     "vitest": "^0.32.2"
   },
   "readme": "ERROR: No README data found!",
-  "_id": "canvas-blocks@0.0.0",
   "husky": {
     "hooks": {
       "pre-commit": "sh .husky/pre-commit && lint-staged",
