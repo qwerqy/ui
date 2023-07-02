@@ -13,7 +13,14 @@ const config: StorybookConfig = {
   ],
   framework: {
     name: "@storybook/react-vite",
-    options: {},
+    options: {
+      builder: {
+        viteConfigPath: "./vite.config.ts",
+      },
+    },
+  },
+  typescript: {
+    reactDocgen: "react-docgen-typescript",
   },
   docs: {
     autodocs: "tag",
