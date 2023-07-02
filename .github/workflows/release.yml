@@ -16,13 +16,6 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.PAT }}
-      - name: Install dependencies for publishing
-        run: pnpm install --frozen-lockfile
-      - name: Build package
-        run: pnpm build
-      - name: Versioning
-        id: versioning
-        uses: paulhatch/semantic-version@v5.0.2
       - uses: pnpm/action-setup@v2
         with:
           version: 8
@@ -32,6 +25,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
           registry-url: "https://registry.npmjs.org"
+      - name: Install dependencies for publishing
+        run: pnpm install --frozen-lockfile
+      - name: Build package
+        run: pnpm build
+      - name: Versioning
+        id: versioning
+        uses: paulhatch/semantic-version@v5.0.2
       - name: Update version in package.json
         run: |
           new_version=${{ steps.versioning.outputs.version_tag }}
