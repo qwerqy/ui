@@ -17,6 +17,24 @@
     "type": "git",
     "url": "https://github/qwerqy/ui.git"
   },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/ui.umd.cjs",
+  "module": "./dist/ui.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./dist/ui.js",
+        "types": "./dist/index.d.ts"
+      },
+      "require": {
+        "default": "./dist/ui.umd.cjs",
+        "types": "./dist/index.d.ts"
+      }
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -66,13 +84,13 @@
     "cmdk": "^0.2.0",
     "date-fns": "^2.30.0",
     "lucide-react": "^0.256.0",
-    "react": "^18.2.0",
     "react-day-picker": "^8.8.0",
-    "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.1",
     "tailwind-merge": "^1.13.2",
     "tailwindcss-animate": "^1.0.6",
-    "zod": "^3.21.4"
+    "zod": "^3.21.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.6",
@@ -108,10 +126,13 @@
     "postcss": "^8.4.24",
     "prettier": "2.8.8",
     "prop-types": "^15.8.1",
+    "react-docgen-typescript": "^2.2.2",
     "storybook": "^7.0.23",
     "tailwindcss": "^3.3.2",
+    "terser": "^5.18.2",
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
+    "vite-plugin-dts": "^3.0.2",
     "vitest": "^0.32.2"
   },
   "readme": "ERROR: No README data found!",
