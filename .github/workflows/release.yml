@@ -7,6 +7,7 @@ on:
 jobs:
   bump-version:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     outputs:
       version_tag: ${{ steps.versioning.outputs.version_tag }}
       current_commit: ${{ steps.versioning.outputs.current_commit }}
@@ -51,6 +52,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
   generate-release-notes:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     needs: bump-version
     permissions:
       contents: write
