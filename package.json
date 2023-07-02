@@ -26,12 +26,12 @@
   "exports": {
     ".": {
       "import": {
-        "default": "./dist/ui.js",
-        "types": "./dist/index.d.ts"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/ui.js"
       },
       "require": {
-        "default": "./dist/ui.umd.cjs",
-        "types": "./dist/index.d.ts"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/ui.umd.cjs"
       }
     }
   },
