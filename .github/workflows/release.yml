@@ -16,9 +16,6 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.PAT }}
-      - name: Versioning
-        id: versioning
-        uses: paulhatch/semantic-version@v5.0.2
       - uses: pnpm/action-setup@v2
         with:
           version: 8
@@ -28,6 +25,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
           registry-url: "https://registry.npmjs.org"
+      - name: Install dependencies for publishing
+        run: pnpm install --frozen-lockfile
+      - name: Build package
+        run: pnpm build
+      - name: Versioning
+        id: versioning
+        uses: paulhatch/semantic-version@v5.0.2
       - name: Update version in package.json
         run: |
           new_version=${{ steps.versioning.outputs.version_tag }}
@@ -38,10 +42,9 @@ jobs:
           git config user.name "Amin Roslan"
           git config user.email "amnrsln@gmail.com"
           git add package.json
-          git commit -m "Bump version to ${{ steps.versioning.outputs.version_tag }}"
+          git commit -m "build: bump version to ${{ steps.versioning.outputs.version_tag }}"
           git push
-      - name: Install dependencies for publishing
-        run: pnpm install --frozen-lockfile
+
       - name: Publish to NPM
         run: pnpm publish --access public
         env:

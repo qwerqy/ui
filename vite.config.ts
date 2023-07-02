@@ -15,7 +15,7 @@ export default defineConfig({
     sourcemap: true,
     minify: "terser",
     rollupOptions: {
-      external: ["react", "react-dom"],
+      external: ["react"],
       output: {
         globals: {
           react: "React",
