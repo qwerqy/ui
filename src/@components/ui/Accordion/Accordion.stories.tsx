@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from "./Accordion";
 
-const meta = {
+const meta: Meta<typeof Accordion> = {
   title: "Components/Accordion",
   component: Accordion,
   args: {
@@ -52,7 +52,7 @@ const meta = {
   parameters: {
     componentSubtitle: "Accordion",
   },
-} as Meta<typeof Accordion>;
+};
 
 export default meta;
 
