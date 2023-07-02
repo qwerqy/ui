@@ -16,6 +16,10 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.PAT }}
+      - name: Install dependencies for publishing
+        run: pnpm install --frozen-lockfile
+      - name: Build package
+        run: pnpm build
       - name: Versioning
         id: versioning
         uses: paulhatch/semantic-version@v5.0.2
@@ -40,10 +44,7 @@ jobs:
           git add package.json
           git commit -m "Bump version to ${{ steps.versioning.outputs.version_tag }}"
           git push
-      - name: Install dependencies for publishing
-        run: pnpm install --frozen-lockfile
-      - name: Build package
-        run: pnpm build
+
       - name: Publish to NPM
         run: pnpm publish --access public
         env:
