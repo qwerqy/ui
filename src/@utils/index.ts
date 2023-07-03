@@ -1,6 +1,4 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
- 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
+import { baseExtend } from "./baseExtend";
+import { cn } from "./cn";
+
+export { baseExtend, cn };
