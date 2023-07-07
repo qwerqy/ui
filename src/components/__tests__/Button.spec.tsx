@@ -1,6 +1,6 @@
 import { render, fireEvent, screen } from "@testing-library/react";
 import { vi } from "vitest";
-import { Button } from "./Button";
+import { Button } from "../Button";
 
 describe("Button component", () => {
   test("renders button with default variant and size", async () => {

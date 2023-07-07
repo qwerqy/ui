@@ -7,9 +7,8 @@
     "skipLibCheck": true,
     "baseUrl": "./src",
     "paths": {
-      "@root/*": ["root/*"],
-      "@components/*": ["@components/*"],
-      "@utils/*": ["@utils/*"],
+      "@components/*": ["components/*"],
+      "@utils/*": ["utils/*"],
     },
     "types": ["node", "@testing-library/jest-dom", "vitest/globals"],
 
