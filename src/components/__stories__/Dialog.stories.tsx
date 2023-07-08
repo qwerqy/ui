@@ -37,7 +37,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const Template: StoryFn<typeof Dialog> = (args) => (
+const Template: StoryFn<typeof Dialog> = () => (
   <Dialog>
     <DialogTrigger>Open</DialogTrigger>
     <DialogContent>

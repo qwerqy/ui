@@ -41,7 +41,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // This is the template component
-const Template: StoryFn<typeof Form> = (args) => {
+const Template: StoryFn<typeof Form> = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });

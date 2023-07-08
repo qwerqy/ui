@@ -8,7 +8,7 @@ import {
   NavigationMenuLink,
 } from "@components/NavigationMenu";
 import React from "react";
-import { cn } from "@utils";
+import { cn } from "@utils/cn";
 
 const meta: Meta<typeof NavigationMenu> = {
   title: "Components/NavigationMenu",
@@ -19,7 +19,7 @@ export default meta;
 
 type Story = StoryObj<typeof NavigationMenu>;
 
-const Template: StoryFn<typeof NavigationMenu> = (args) => (
+const Template: StoryFn<typeof NavigationMenu> = () => (
   <NavigationMenu>
     <NavigationMenuList>
       <NavigationMenuItem>

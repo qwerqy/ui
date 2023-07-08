@@ -36,7 +36,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const Template: StoryFn<typeof ContextMenu> = (args) => (
+const Template: StoryFn<typeof ContextMenu> = () => (
   <ContextMenu>
     <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
       Right click here

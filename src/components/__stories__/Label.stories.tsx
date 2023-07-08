@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Meta, StoryFn, StoryObj } from "@storybook/react";
 import { Label } from "@components/Label";
 

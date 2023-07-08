@@ -34,7 +34,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Template for the Story
-const Template: StoryFn<typeof DropdownMenu> = (args) => (
+const Template: StoryFn<typeof DropdownMenu> = () => (
   <DropdownMenu>
     <DropdownMenuTrigger>Open</DropdownMenuTrigger>
     <DropdownMenuContent>

@@ -32,7 +32,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const Template: StoryFn<typeof Command> = (args) => {
+const Template: StoryFn<typeof Command> = () => {
   const [open, setOpen] = useState(false);
   return (
     <>
