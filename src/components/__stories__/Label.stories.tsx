@@ -2,7 +2,6 @@ import * as React from "react";
 import { Meta, StoryFn, StoryObj } from "@storybook/react";
 import { Label } from "@components/Label";
 
-// Meta information for the component
 const meta: Meta<typeof Label> = {
   title: "Components/Label",
   component: Label,
@@ -28,9 +27,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Template component that will be referred to by all the stories
-const Template: StoryFn<React.ComponentProps<typeof Label>> = (args) => (
-  <Label {...args} />
-);
+const Template: StoryFn<typeof Label> = (args) => <Label {...args} />;
 
 // Default story
 export const Default: Story = {
